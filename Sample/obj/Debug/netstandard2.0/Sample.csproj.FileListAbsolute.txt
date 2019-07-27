@@ -1,0 +1,9 @@
+/app/Sample/bin/Debug/netstandard2.0/Sample.deps.json
+/app/Sample/bin/Debug/netstandard2.0/Sample.dll
+/app/Sample/bin/Debug/netstandard2.0/Sample.pdb
+/app/Sample/obj/Debug/netstandard2.0/Sample.csprojAssemblyReference.cache
+/app/Sample/obj/Debug/netstandard2.0/Sample.csproj.CoreCompileInputs.cache
+/app/Sample/obj/Debug/netstandard2.0/Sample.AssemblyInfoInputs.cache
+/app/Sample/obj/Debug/netstandard2.0/Sample.AssemblyInfo.cs
+/app/Sample/obj/Debug/netstandard2.0/Sample.dll
+/app/Sample/obj/Debug/netstandard2.0/Sample.pdb
