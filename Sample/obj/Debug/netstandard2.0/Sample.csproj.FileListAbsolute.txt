@@ -7,3 +7,12 @@
 /app/Sample/obj/Debug/netstandard2.0/Sample.AssemblyInfo.cs
 /app/Sample/obj/Debug/netstandard2.0/Sample.dll
 /app/Sample/obj/Debug/netstandard2.0/Sample.pdb
+/home/hsequeda/Documentos/meetup/dotnet-meetup/Sample/bin/Debug/netstandard2.0/Sample.deps.json
+/home/hsequeda/Documentos/meetup/dotnet-meetup/Sample/bin/Debug/netstandard2.0/Sample.dll
+/home/hsequeda/Documentos/meetup/dotnet-meetup/Sample/bin/Debug/netstandard2.0/Sample.pdb
+/home/hsequeda/Documentos/meetup/dotnet-meetup/Sample/obj/Debug/netstandard2.0/Sample.csprojAssemblyReference.cache
+/home/hsequeda/Documentos/meetup/dotnet-meetup/Sample/obj/Debug/netstandard2.0/Sample.csproj.CoreCompileInputs.cache
+/home/hsequeda/Documentos/meetup/dotnet-meetup/Sample/obj/Debug/netstandard2.0/Sample.AssemblyInfoInputs.cache
+/home/hsequeda/Documentos/meetup/dotnet-meetup/Sample/obj/Debug/netstandard2.0/Sample.AssemblyInfo.cs
+/home/hsequeda/Documentos/meetup/dotnet-meetup/Sample/obj/Debug/netstandard2.0/Sample.dll
+/home/hsequeda/Documentos/meetup/dotnet-meetup/Sample/obj/Debug/netstandard2.0/Sample.pdb

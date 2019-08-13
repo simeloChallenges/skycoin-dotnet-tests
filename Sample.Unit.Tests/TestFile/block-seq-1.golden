@@ -1,0 +1,18 @@
+class BlockSchema {
+  Header: class BlockVerboseSchemaHeader {
+  Seq: 1
+  Timestamp: 1427926392
+  Fee: 99999999999900
+  Version: 0
+  BlockHash: baf3b622f043bbe3ef480416251a6545d07f173e5969dde2b63c4a12956d38fd
+  PreviousBlockHash: 0551a1e5af999fe8fff529f6f2ab341e1e33db95135eef1b2be44fe6981349f3
+  TxBodyHash: 86564b421cd3d4fe6f5f2d7a3e5db9d6fc340892bddd3a150533dff7036d0efe
+  UxHash: ecc66d67289ecf8b5c5d2758a8f07ef08373a61a4d4e2736905ac2aaa427655f
+}
+
+  Body: class BlockSchemaBody {
+  Txns: System.Collections.Generic.List`1[System.Object]
+}
+
+  Size: 3846
+}
