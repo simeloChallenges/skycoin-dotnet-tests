@@ -6,11 +6,8 @@ using System.IO;
 using System.Text;
 using Newtonsoft.Json;
 using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
 using System.Globalization;
 using System.Linq;
-using System.Net.Http.Headers;
-using System.Reflection.Metadata;
 using System.Text.RegularExpressions;
 using Skyapi.Model;
 
@@ -293,6 +290,41 @@ namespace Sample.Unit.Tests
             }
         }
 
+        [Fact]
+        private void TestNetworkConnectionExchange()
+        {
+            if (testMode.Equals("stable"))
+            {
+                NetworkConnectionExchangeStable();
+            }
+            else
+            {
+                NetworkConnectionExchangeLive();
+            }
+        }
+
+        [Fact]
+        private void TestNetworkConnectionTrust()
+        {
+            var apiInstance = new DefaultApi(nodeAddress);
+            var connections = apiInstance.NetworkConnectionsTrust();
+            Assert.NotEmpty(connections);
+            connections.Sort();
+            CheckGoldenFile("network-trusted-peers.golden",
+                JsonConvert.SerializeObject(connections, Formatting.Indented));
+        }
+
+        [Fact]
+        private void TestNetworkDefaultConnection()
+        {
+            var apiInstance = new DefaultApi(nodeAddress);
+            var connections = apiInstance.DefaultConnections();
+            Assert.NotEmpty(connections);
+            connections.Sort();
+            CheckGoldenFile("network-default-peers.golden",
+                JsonConvert.SerializeObject(connections, Formatting.Indented));
+        }
+        
         private void BalanceStable()
         {
             var apiInstance = new DefaultApi(nodeAddress);
@@ -960,7 +992,7 @@ namespace Sample.Unit.Tests
                     errMsg = "",
                     goldenFile = "confirmed-excluded-from-transactions.golden",
                     confirmed = "false"
-                },
+                }
             };
             foreach (var tc in testCases)
             {
@@ -983,7 +1015,7 @@ namespace Sample.Unit.Tests
                             apiInstance.Configuration.AddApiKeyPrefix("X-CSRF-TOKEN", GetCsrf());
                         }
 
-//EndPoint /api/v1/transactions with method post always return all address.
+                        //EndPoint /api/v1/transactions with method post always return all address.
                         var resultp = apiInstance.TransactionsPost(string.Join(",", tc.addrs));
                         CheckGoldenFile("empty-addrs-transactions.golden", resultp);
                     }
@@ -996,7 +1028,7 @@ namespace Sample.Unit.Tests
                             apiInstance.Configuration.AddApiKeyPrefix("X-CSRF-TOKEN", GetCsrf());
                         }
 
-//EndPoint /api/v1/transactions with method post always return all address.
+                        //EndPoint /api/v1/transactions with method post always return all address.
                         var resultp = apiInstance.TransactionsPost(string.Join(",", tc.addrs));
                         CheckGoldenFile("empty-addrs-transactions.golden", resultp);
                     }
@@ -1058,7 +1090,7 @@ namespace Sample.Unit.Tests
             AssertNoTransactionsDupes(mresult);
         }
 
-        private void AssertNoTransactionsDupes(List<Transaction> list)
+        private static void AssertNoTransactionsDupes(IEnumerable<Transaction> list)
         {
             var txids = new Dictionary<string, object>();
             foreach (var transaction in list)
@@ -1071,8 +1103,8 @@ namespace Sample.Unit.Tests
         private void HealthStable()
         {
             var apiInstance = new DefaultApi(nodeAddress);
-            Health result = JsonConvert.DeserializeObject<Health>(apiInstance.Health().ToString());
-            checkHealthResponse(result);
+            var result = JsonConvert.DeserializeObject<Health>(apiInstance.Health().ToString());
+            CheckHealthResponse(result);
             Assert.Equal(0, result.Open_Connections);
             Assert.Equal(0, result.Incoming_Connections);
             Assert.Equal(0, result.Outgoing_Connections);
@@ -1091,7 +1123,7 @@ namespace Sample.Unit.Tests
         {
             var apiInstance = new DefaultApi(nodeAddress);
             var result = JsonConvert.DeserializeObject<Health>(apiInstance.Health().ToString());
-            checkHealthResponse(result);
+            CheckHealthResponse(result);
             if (liveDisableNetworking)
             {
                 Assert.Equal(0, result.Open_Connections);
@@ -1106,7 +1138,7 @@ namespace Sample.Unit.Tests
             Assert.Equal(result.Outgoing_Connections + result.Incoming_Connections, result.Open_Connections);
         }
 
-        private void checkHealthResponse(Health h)
+        private static void CheckHealthResponse(Health h)
         {
             Assert.NotEqual(0, h.Blockchain.Unspents);
             Assert.NotEqual(0, h.Blockchain.Head.Seq);
@@ -1183,7 +1215,7 @@ namespace Sample.Unit.Tests
             }
 
             Assert.NotEmpty(connections.Connections);
-            bool check = false;
+            var check = false;
             connections.Connections.ForEach(cc =>
             {
                 NetworkConnectionSchema connection = null;
@@ -1238,7 +1270,21 @@ namespace Sample.Unit.Tests
             connections.Connections.ForEach(cc => { Assert.False(cc.Outgoing); });
         }
 
-        private void CompareTime(string time)
+        private void NetworkConnectionExchangeStable()
+        {
+            var apiInstance = new DefaultApi(nodeAddress);
+            var conenctions = apiInstance.NetworkConnectionsExchange();
+            CheckGoldenFile("network-exchanged-peers.golden",
+                JsonConvert.SerializeObject(conenctions, Formatting.Indented));
+        }
+
+        private void NetworkConnectionExchangeLive()
+        {
+            var apiInstance = new DefaultApi(nodeAddress);
+            apiInstance.NetworkConnectionsExchange();
+        }
+
+        private static void CompareTime(string time)
         {
             var x = Regex.Split(time, @"h|s|m").Reverse().ToArray();
             int s = (int) float.Parse(x.Length >= 2 ? (x[1] != "" ? x[1] : "0") : "0"),
@@ -1263,21 +1309,16 @@ namespace Sample.Unit.Tests
             return token;
         }
 
-        private void CheckGoldenFile(string file, object valRecive)
+        private static void CheckGoldenFile(string file, object valRecive)
         {
             file = "../../../TestFile/" + file;
-            var valSpected = LoadGoldenFile(file, valRecive);
-            if (valSpected == null)
-            {
-                valSpected = LoadGoldenFile(file, valRecive);
-            }
-
+            var valSpected = LoadGoldenFile(file, valRecive) ?? LoadGoldenFile(file, valRecive);
             Assert.Equal(valRecive.ToString(), valSpected);
         }
 
-        private object LoadGoldenFile(string file, object valRecive)
+        private static object LoadGoldenFile(string file, object valRecive)
         {
-            FileStream fs = new FileStream(file, FileMode.OpenOrCreate);
+            var fs = new FileStream(file, FileMode.OpenOrCreate);
             if (fs.Length == 0)
             {
                 fs.Write(Encoding.ASCII.GetBytes(valRecive.ToString()));
@@ -1286,7 +1327,7 @@ namespace Sample.Unit.Tests
                 return null;
             }
 
-            byte[] b = new byte[fs.Length];
+            var b = new byte[fs.Length];
             fs.Read(b);
             fs.Close();
             return Encoding.ASCII.GetString(b);
