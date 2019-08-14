@@ -358,7 +358,8 @@ namespace Sample.Unit.Tests
                 .ToString());
             Assert.Equal(result.Confirmed.coins, result.Predicted.coins);
             Assert.Equal(result.Confirmed.hours, result.Predicted.hours);
-            Assert.NotNull(result.Confirmed.hours);
+            Assert.NotEqual(0, result.Confirmed.hours);
+
             // Add 1e4 because someone sent 0.01 coins to it
             decimal expectedBalance = decimal.Parse("1E6", NumberStyles.Any) * decimal.Parse("1E6", NumberStyles.Any) +
                                       decimal.Parse("1E4", NumberStyles.Any);
@@ -380,7 +381,7 @@ namespace Sample.Unit.Tests
         {
             var apiInstance = new DefaultApi(nodeAddress);
             var result = apiInstance.AddressCount();
-            Assert.Equal(result.Count, 155);
+            Assert.Equal(155, result.Count);
         }
 
         private void AddressCountLive()
@@ -634,7 +635,7 @@ namespace Sample.Unit.Tests
                 else
                 {
                     var result = apiInstance.AddressUxouts(tc.address);
-                    Assert.NotEqual(0, result.Count);
+                    Assert.Empty(result);
                 }
             }
         }
@@ -1107,9 +1108,9 @@ namespace Sample.Unit.Tests
 
         private void checkHealthResponse(Health h)
         {
-            Assert.NotNull(h.Blockchain.Unspents);
-            Assert.NotNull(h.Blockchain.Head.Seq);
-            Assert.NotNull(h.Blockchain.Head.Timestamp);
+            Assert.NotEqual(0, h.Blockchain.Unspents);
+            Assert.NotEqual(0, h.Blockchain.Head.Seq);
+            Assert.NotEqual(0, h.Blockchain.Head.Timestamp);
             Assert.NotNull(h.Version.Version);
             CompareTime(h.Uptime);
             Assert.NotNull(h.Coin);
@@ -1219,12 +1220,22 @@ namespace Sample.Unit.Tests
                 }
                 else
                 {
-                    Assert.Equal(cc.Outgoing, connection?.Outgoing);
-                    Assert.True(cc.LastReceived <= connection?.LastReceived);
-                    Assert.True(cc.LastSent <= connection.LastSent);
-                    Assert.Equal(cc.ConnectedAt, connection.ConnectedAt);
+                    Assert.NotEqual(0, cc.Id);
                 }
+
+                Assert.Equal(cc.Outgoing, connection?.Outgoing);
+                Assert.True(cc.LastReceived <= connection?.LastReceived);
+                Assert.True(cc.LastSent <= connection.LastSent);
+                Assert.Equal(cc.ConnectedAt, connection.ConnectedAt);
+                check = true;
             });
+            Assert.True(check,
+                "Was not able to find any connection by address, despite finding connections when querying all");
+            connections = apiInstance.NetworkConnections(states: "pending");
+            connections.Connections.ForEach(
+                cc => { Assert.Equal(NetworkConnectionSchema.StateEnum.Pending, cc.State); });
+            connections = apiInstance.NetworkConnections(direction: "incoming");
+            connections.Connections.ForEach(cc => { Assert.False(cc.Outgoing); });
         }
 
         private void CompareTime(string time)

@@ -179,23 +179,23 @@
     ]
   },
   "packageFolders": {
-    "/root/.nuget/packages/": {},
+    "/home/hsequeda/.nuget/packages/": {},
     "/usr/share/dotnet/sdk/NuGetFallbackFolder": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "/app/Sample/Sample.csproj",
+      "projectUniqueName": "/home/hsequeda/Documentos/meetup/dotnet-meetup/Sample/Sample.csproj",
       "projectName": "Sample",
-      "projectPath": "/app/Sample/Sample.csproj",
-      "packagesPath": "/root/.nuget/packages/",
-      "outputPath": "/app/Sample/obj/",
+      "projectPath": "/home/hsequeda/Documentos/meetup/dotnet-meetup/Sample/Sample.csproj",
+      "packagesPath": "/home/hsequeda/.nuget/packages/",
+      "outputPath": "/home/hsequeda/Documentos/meetup/dotnet-meetup/Sample/obj/",
       "projectStyle": "PackageReference",
       "fallbackFolders": [
         "/usr/share/dotnet/sdk/NuGetFallbackFolder"
       ],
       "configFilePaths": [
-        "/root/.nuget/NuGet/NuGet.Config"
+        "/home/hsequeda/.nuget/NuGet/NuGet.Config"
       ],
       "originalTargetFrameworks": [
         "netstandard2.0"
