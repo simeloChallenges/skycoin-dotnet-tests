@@ -3,11 +3,11 @@
   <PropertyGroup Condition=" '$(ExcludeRestorePackageImports)' != 'true' ">
     <RestoreSuccess Condition=" '$(RestoreSuccess)' == '' ">True</RestoreSuccess>
     <RestoreTool Condition=" '$(RestoreTool)' == '' ">NuGet</RestoreTool>
-    <ProjectAssetsFile Condition=" '$(ProjectAssetsFile)' == '' ">/app/Sample.Unit.Tests/obj/project.assets.json</ProjectAssetsFile>
-    <NuGetPackageRoot Condition=" '$(NuGetPackageRoot)' == '' ">/root/.nuget/packages/</NuGetPackageRoot>
-    <NuGetPackageFolders Condition=" '$(NuGetPackageFolders)' == '' ">/root/.nuget/packages/;/usr/share/dotnet/sdk/NuGetFallbackFolder</NuGetPackageFolders>
+    <ProjectAssetsFile Condition=" '$(ProjectAssetsFile)' == '' ">$(MSBuildThisFileDirectory)project.assets.json</ProjectAssetsFile>
+    <NuGetPackageRoot Condition=" '$(NuGetPackageRoot)' == '' ">/home/hsequeda/.nuget/packages/</NuGetPackageRoot>
+    <NuGetPackageFolders Condition=" '$(NuGetPackageFolders)' == '' ">/home/hsequeda/.nuget/packages/;/usr/share/dotnet/sdk/NuGetFallbackFolder</NuGetPackageFolders>
     <NuGetProjectStyle Condition=" '$(NuGetProjectStyle)' == '' ">PackageReference</NuGetProjectStyle>
-    <NuGetToolVersion Condition=" '$(NuGetToolVersion)' == '' ">4.9.4</NuGetToolVersion>
+    <NuGetToolVersion Condition=" '$(NuGetToolVersion)' == '' ">5.2.0</NuGetToolVersion>
   </PropertyGroup>
   <PropertyGroup>
     <MSBuildAllProjects>$(MSBuildAllProjects);$(MSBuildThisFileFullPath)</MSBuildAllProjects>
@@ -17,10 +17,10 @@
     <Import Project="$(NuGetPackageRoot)microsoft.net.test.sdk/15.9.0/build/netcoreapp1.0/Microsoft.Net.Test.Sdk.props" Condition="Exists('$(NuGetPackageRoot)microsoft.net.test.sdk/15.9.0/build/netcoreapp1.0/Microsoft.Net.Test.Sdk.props')" />
     <Import Project="$(NuGetPackageRoot)xunit.runner.visualstudio/2.4.0/build/netcoreapp1.0/xunit.runner.visualstudio.props" Condition="Exists('$(NuGetPackageRoot)xunit.runner.visualstudio/2.4.0/build/netcoreapp1.0/xunit.runner.visualstudio.props')" />
     <Import Project="$(NuGetPackageRoot)xunit.core/2.4.0/build/xunit.core.props" Condition="Exists('$(NuGetPackageRoot)xunit.core/2.4.0/build/xunit.core.props')" />
-    <Import Project="/usr/share/dotnet/sdk/NuGetFallbackFolder/microsoft.netcore.app/2.1.0/build/netcoreapp2.1/Microsoft.NETCore.App.props" Condition="Exists('/usr/share/dotnet/sdk/NuGetFallbackFolder/microsoft.netcore.app/2.1.0/build/netcoreapp2.1/Microsoft.NETCore.App.props')" />
+    <Import Project="$(NuGetPackageRoot)microsoft.netcore.app/2.1.0/build/netcoreapp2.1/Microsoft.NETCore.App.props" Condition="Exists('$(NuGetPackageRoot)microsoft.netcore.app/2.1.0/build/netcoreapp2.1/Microsoft.NETCore.App.props')" />
   </ImportGroup>
   <PropertyGroup Condition=" '$(ExcludeRestorePackageImports)' != 'true' ">
-    <PkgNewtonsoft_Json Condition=" '$(PkgNewtonsoft_Json)' == '' ">/root/.nuget/packages/newtonsoft.json/10.0.3</PkgNewtonsoft_Json>
-    <Pkgxunit_analyzers Condition=" '$(Pkgxunit_analyzers)' == '' ">/root/.nuget/packages/xunit.analyzers/0.10.0</Pkgxunit_analyzers>
+    <PkgNewtonsoft_Json Condition=" '$(PkgNewtonsoft_Json)' == '' ">/home/hsequeda/.nuget/packages/newtonsoft.json/10.0.3</PkgNewtonsoft_Json>
+    <Pkgxunit_analyzers Condition=" '$(Pkgxunit_analyzers)' == '' ">/home/hsequeda/.nuget/packages/xunit.analyzers/0.10.0</Pkgxunit_analyzers>
   </PropertyGroup>
 </Project>
